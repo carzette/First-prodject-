@@ -44,6 +44,7 @@ package
 		private var starscale:Number = 0.35;
 		
 		
+		private var myStars:Array = new Array();
 	
 		
 		public function Main():void 
@@ -56,6 +57,7 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
+			
 			this.graphics.beginFill(0x000000);
 			this.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
 			this.graphics.endFill();
@@ -90,49 +92,12 @@ package
 			debug.height = stage.stageHeight;
 			debug.selectable = false;
 			
-			star.graphics.beginFill(0xFFFF00);
-			star.graphics.moveTo(150,25);
-			star.graphics.lineTo (179,111);
-			star.graphics.lineTo (269,111);
-			star.graphics.lineTo (197, 165);
-			star.graphics.lineTo(223,251);
-			star.graphics.lineTo(150,200);
-			star.graphics.lineTo(77,251);
-			star.graphics.lineTo(103,165);
-			star.graphics.lineTo(31,111);
-			star.graphics.lineTo(121,111);
-			star.graphics.endFill();
-			star.scaleX = starscale;
-			star.scaleY = starscale;
-			star.buttonMode = true;
-			randomX(star);
-		    addChild(star);
-			
-			/*Star2.graphics.beginFill(0xFFFF00);
-			Star2.graphics.moveTo(150,25);
-			Star2.graphics.lineTo (179,111);
-			Star2.graphics.lineTo (269,111);
-			Star2.graphics.lineTo (197, 165);
-			Star2.graphics.lineTo(223,251);
-			Star2.graphics.lineTo(150,200);
-			Star2.graphics.lineTo(77,251);
-			Star2.graphics.lineTo(103,165);
-			Star2.graphics.lineTo(31,111);
-			Star2.graphics.lineTo(121,111);
-			Star2.graphics.endFill();
-			Star2.scaleX = starscale;
-			Star2.scaleY = starscale;
-			Star2.buttonMode = true
-			Star2.x = lodastart + 10;
-			randomX(Star2);
-		    addChild(Star2);*/
 		  
 			
 			this.addEventListener(KeyboardEvent.KEY_DOWN, escdown);
 			this.addEventListener(KeyboardEvent.KEY_UP, escup);
 			stage.addEventListener (Event.ENTER_FRAME, ner);
-			star.addEventListener (MouseEvent.CLICK, klick);
-			//Star2.addEventListener (MouseEvent.CLICK, klick);
+			
 			
 			Win.graphics.beginFill(0xFF8000);
 			Win.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
@@ -161,8 +126,15 @@ package
 			lvlText.y = 5;
 			addChild(lvlText);
 			
-			
-			
+			for (var ns:int = 0; ns < 10; ns++)
+			{
+				var mstar:Star = new Star(starscale);
+				mstar.x = randomX();
+				mstar.y = lodastart;
+				mstar.addEventListener(MouseEvent.CLICK, klick);
+				addChild(mstar);
+				myStars.push(mstar);
+			}
 			
 			
 		}
@@ -190,93 +162,97 @@ package
 		
 		private function restarting(r:MouseEvent):void 
 		{
-			star.y = lodastart;
-			//Star2.y = lodastart -30;
-			randomX(star);
-			//randomX(Star2);
-			lodaFall = 5;
+			for each (var cstar:Star in myStars)
+			{
+				cstar.x = randomX();
+				cstar.enable();
+			}
 			points = 0;
 			score.text = points.toString();
 			score.setTextFormat(format);
+		 lvl = 1; 
+		 lvlText.text = lvl.toString();	
+		 lvlText.setTextFormat(format);
 		}
 		
 		private function ner(ne:Event):void 
 		{
-			star.y += lodaFall;
-			star.x = star.x + speed;
-			
-			/*Star2.y += lodaFall - 2;
-			Star2.x = Star2.x + speed;*/
-			
-			
-			if (star.y >= stage.stageHeight - lodaSide - 25)
+			for each (var cstar:Star in myStars)
 			{
-				lodaFall = -lodaFall;
-			}
-			if (star.y <= 0)
-			{
-				lodaFall = -lodaFall;
-			}
-			if (star.x >= stage.stageWidth - lodaSide - 25)
-			{
-				speed = -speed;
-			}
-			if (star.x  <= 0)
-			{	
-				speed = -speed;
-			
-			}
-			
-			if (points == 3)
-			{
-				addChild(Win);
-				addChild(youwin);
-				Win.visible = true;
-				debug.visible = true;
-				youwin.visible = true;
-				score.visible = false;
-				star.visible = false;
-				restart.visible = false;
-				restartText.visible = false;
-				points = 0;
-				lvl ++;
-				addChild(debug);
+				cstar.update();
+				
+				if (cstar.y >= stage.stageHeight - lodaSide - 25)
+				{
+					cstar.starSpeedY = -cstar.starSpeedY;
+				}
+				if (cstar.y <= 0)
+				{
+					cstar.starSpeedY = -cstar.starSpeedY;
+				}
+				if (cstar.x >= stage.stageWidth - lodaSide - 25)
+				{
+					cstar.starSpeedX = -cstar.starSpeedX;
+				}
+				if (cstar.x  <= 0)
+				{	
+					cstar.starSpeedX = -cstar.starSpeedX;
+				}
+				
+				if (points == myStars.length)
+				{
+					addChild(Win);
+					addChild(youwin);
+					Win.visible = true;
+					debug.visible = true;
+					youwin.visible = true;
+					score.visible = false;
+					cstar.disable();
+					restart.visible = false;
+					restartText.visible = false;
+					points = 0;
+					addChild(debug);
+				}
+				if (esc)
+				{
+					score.visible = true;
+					cstar.enable();
+					restart.visible = true;
+					restartText.visible = true;
+					Win.visible = false;
+					youwin.visible = false;
+					debug.visible = false;
+					score.text = points.toString();
+					score.setTextFormat(format);
+					lodaFall += 5;
+				}
 			}
 			if (esc)
 			{
-				score.visible = true;
-				star.visible = true;
-				restart.visible = true;
-				restartText.visible = true;
-				Win.visible = false;
-				youwin.visible = false;
-				debug.visible = false;
-				score.text = points.toString();
-				score.setTextFormat(format);
 				esc = false;
-				lodaFall += 5;
+				lvl ++;
+				lvlText.text = lvl.toString();
+				lvlText.setTextFormat(format); 
+				
 			}
 			
 		}
 		
 		private function klick(u:MouseEvent):void 
 		{
-			star.y = lodastart;
-			//Star2.y = lodastart;
-			//randomX(Star2);
-			randomX(star);
+			u.target.y = lodastart;
+			u.target.x = randomX();
+			Star(u.target).disable();
 			lodaFall += 5;
 			points ++;
-			score.text = points.toString();
+			score.text = points.toString() + "/" + myStars.length;
 			score.setTextFormat(format);
 			
 		}
 		
 		
-		private function randomX(s:Sprite):void 
+		private function randomX():int 
 		{
-			s.x = Math.random()  * (stage.stageWidth - lodaSide) + 3;
-			
+			return Math.random()  * (stage.stageWidth - lodaSide) + 3;	
 		}
 		
 		
