@@ -1,0 +1,44 @@
+body {
+	width:100%;
+}
+
+#logo_pic{
+	width: 10%;
+	height: 10%;
+}
+
+h1 {
+	display: inline-block;
+	
+}
+
+.meny{
+ background-color: #dddddd;
+ display: inline-block;
+ font-size: 130%;
+ font-weight: bold;
+ width:10%;
+ vertical-align: top;
+}
+
+.meny > ul {
+	list-style: none;
+	padding-left: 3%;
+}
+
+.content{
+background-color: #dddddd;
+width:50%;
+height: 50%;
+display:inline-block;
+font-family: sans-serif;
+}
+
+#splash_image{
+	width:100%;
+}
+
+p{
+	margin: auto;
+}
+
