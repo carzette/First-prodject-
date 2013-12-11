@@ -4,6 +4,7 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.ui.Keyboard;
 	import flash.geom.ColorTransform;
@@ -23,8 +24,6 @@ package
 		private var amountOfTiles:int = 0;
 		
 		
-		
-		
 		public function Main():void 
 		{
 			if (stage) init();
@@ -40,7 +39,7 @@ package
 			scoreboard.x = stage.stageWidth - scoreboard.width;
 			
 			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN , space)
+			stage.addEventListener(KeyboardEvent.KEY_DOWN , space);
 			
 			//creates a Board with 10x10 tiles
 			for (var i:int = 0; i < 10; i++) 
@@ -49,8 +48,12 @@ package
 				
 				for (var j:int = 0; j < 10; j++) 
 				{
-					var tile:Tile = new Tile()
-					tile.draw();
+					var type:int = 0;
+					
+					type = Tile.WATER;
+						
+					
+					var tile:Tile = new Tile(type)
 					
 					tile.x = 0 + j * (tile.width + 5);
 					tile.y = 0 + i * (tile.height + 5);
@@ -61,78 +64,67 @@ package
 					
 					amountOfTiles++;
 					
-					
-					
 				}
 				
+
 				battleboard.push(line);
 				
 			}
 			
-			
-			 function clickOn(m:MouseEvent):void 
-			{
-				for (var k:int = 0; k < 10; k++) 
-				{
-					for (var l:int = 0; l <10 ; l++) 
-					{
-						if (m.target == battleboard[k][l]) 
-						{
-							score ++;
-							scoreboard.text = score.toString();
-							addChild (scoreboard);
-							m.target.clicked = true;
-							m.target.draw();
-						}	
-					}
-					
-				}
-				
-				
-				
-			}
-			
-			function space(t:KeyboardEvent):void 
-			{
-				switch (t.keyCode) 
-				{
-					case Keyboard.SPACE :
-						
-
-						for (var m:int = 0; m < 10; m++) 
-						{
-							
-							for (var n:int = 9; n >= 0; n--) 
-							{
-								
-								battleboard[m][n].clicked = false;
-								battleboard[m][n].draw();
-								
-							}
-							
-							
-							
-						}
-						
-						
-
-						
-					score = 0;	
-					scoreboard.text = score.toString();
-					
-					break;
-					default:
-				}
-			
-				
-			}
+			setShip();
 			
 		}
+			
+		private function clickOn(m:MouseEvent):void 
+		{
+				Tile(m.target).clicked();
+			
+		}
+		private function setShip():void 
+		{
+			var horizontal:int = Math.round(Math.random());
+			var shipPoint:Point = new Point(Math.round(Math.random() * 7), Math.round(Math.random() * 7));
+			trace(shipPoint.x + ", " + shipPoint.y);
+			trace(randomPosision);
+			
+			for (var o:int = 0; o < 3; o++)
+			{
+				
+				if (horizontal == 1) 
+				{
+					battleboard[shipPoint.y][shipPoint.x + o].setType(Tile.SHIP);
+				}
+				else 
+				{
+					battleboard[shipPoint.y+o][shipPoint.x].setType(Tile.SHIP);
+				}
+				
+				
+			}
+		}
 		
+		private function space(t:KeyboardEvent):void 
+		{
+			switch (t.keyCode) 
+			{
+				case Keyboard.SPACE :
+					
+					for each(var line:Vector.<Tile> in battleboard)
+					{
+						for each(var tile:Tile in line)
+						{
+							tile.reset();
+							
+						}
+					}
+					
+				setShip();
+					
+				break;
+				default:
+			}
 		
-		
-		
-		
+		}
 		
 	}
 	
