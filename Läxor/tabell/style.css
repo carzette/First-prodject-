@@ -5,9 +5,8 @@ table {
 
  thead{
  	background-color:#ddd;
-	text-shadow:#fff 1px 1px 1px;
-	box-shadow: 0 0 4px #333;
  }
+
 
  tr{
 	transition: background-color 0.5s;
