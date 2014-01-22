@@ -1,0 +1,28 @@
+table {
+	 border: 1px solid #000;
+	 font-family: Verdana, tahoma, sans-serif;
+}
+
+ thead{
+ 	background-color:#ddd;
+	text-shadow:#fff 1px 1px 1px;
+	box-shadow: 0 0 4px #333;
+ }
+
+ tr{
+	transition: background-color 0.5s;
+	-webkit-transition: bacground-color 0.5s;
+	-moz-transition: bacground-color 0.5s;
+	-ms-transition: bacground-color 0.5s;
+	-o-transition: bacground-color 0.5s;
+ }
+ tr{
+ background-color: blue;;
+ }
+ tr:hover{
+	background-color:teal;
+}
+
+td{
+	color:white;
+}

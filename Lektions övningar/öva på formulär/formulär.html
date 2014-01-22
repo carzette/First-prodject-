@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Formulärexempel</title>
+<style>
+input, textarea
+{
+border: 1px solid #f00;
+display: block;
+}
+
+input[type=checkbox] , input[type=radio]
+{
+ display:inline;
+}
+
+</style>
+	</head>
+<body>
+	<div id ="container">
+		<form action="verify_loging.php" method="POST">
+			<fieldset>
+				<legend>Inloggning</legend>
+				
+				<label for="slt_userType">Jag är</label>
+				<select id="slt_userType" name="frm_userType">
+					<option value="teacher">Lärare</option>
+					<option value="Student"selected="selected">Elev</option>
+					<option value="Parant">Förälder</option>
+				</select><br />
+				
+				<label for="frm_username"> Användarnamn:</label>
+				
+				<input type="text" id="frm_username"  name="frm_username" placeholder="Användarnamn"/>
+				
+				<label for="frm_password"> Lösenord:</label>
+				<input type="password" id="frm_password" name="password" placeholder="Lösenord"/>
+				
+				<input type="checkbox" id="frm_checkbox" name="rememberMe" value="Yes"/>
+				<label for="frm_checkbox"> Kom ihåg</label><br />
+				
+				<label for="always"> Gör alltid detta</label>
+				<input type="radio" name="rdo_always" value="Yes"  checked="checked"/>
+				<input type="radio" name="rdo_always" value="No" />
+				
+				<textarea name="txt_comment" placeholder="skriv här"></textarea>
+				
+				<input type="date" />
+				<input type="number" />
+				<input type="hidden" name="frm_hidden" value="SecretMessage" />
+				
+				
+				<input type="Submit" name="btn_submit" value="Logga in" />
+				
+				
+				<input type="reset" name="återställa"/>
+			</fieldset>
+		</form>
+</body>
+</html>

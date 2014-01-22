@@ -1,0 +1,33 @@
+table {
+	 border: 1px solid #000;
+	 font-family: Verdana, tahoma, sans-serif;
+}
+
+ thead{
+ 	background-color:#ddd;
+	text-shadow:#fff 1px 1px 1px;
+	box-shadow: 0 0 4px #333;
+ }
+
+ tr{
+	transition: background-color 2s;
+	-webkit-transition: bacground-color 2s;
+	-moz-transition: bacground-color 2s;
+	-ms-transition: bacground-color 2s;
+	-o-transition: bacground-color 2s;
+ }
+ tr{
+ background-color:teal;
+ }
+ tr:hover{
+	background-color:lime;
+}
+ .sum td{
+ 
+	border-top: 1px solid #000;
+	font-weight:bold; 
+	box-shadow: 0 0 4px #333;
+ }
+ 
+ 
+ 
