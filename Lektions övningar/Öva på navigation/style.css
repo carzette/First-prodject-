@@ -1,0 +1,36 @@
+* 
+{
+	border:1px solid #f00;
+}
+
+nav > ul 
+{
+	list-style:none;
+	width:600px;
+	margin: auto;
+	padding: 0;
+	text-align: center;
+	
+}
+
+li
+{
+	margin: 0;
+	width: 120px;
+	display: inline-block;
+	text-align:left;
+	
+}
+a
+{
+	background: url(knapp.png) no-repeat center;
+	display: block;
+	width:100%;
+	overflow:hidden;
+	text-indent: -9999px;
+}
+a:hover
+{
+	background: url(knapp.png) no-repeat;
+}
+

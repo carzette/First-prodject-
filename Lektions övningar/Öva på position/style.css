@@ -1,7 +1,7 @@
 #container{
 	border: 1px solid #000;
 	width:600px;
-	background-color: green;
+	background-color:brown;
 }
 #container > h1 {
 	width:300px;
@@ -11,4 +11,7 @@
 #container > img{
 	width: 200px;
 	float:left;
+}
+.clear{
+	clear:both;
 }

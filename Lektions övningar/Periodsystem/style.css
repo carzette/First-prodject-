@@ -1,0 +1,49 @@
+.other{
+	background-color:#F49F95;
+	border:solid 1px #000; 
+}
+.nonmetal{
+	background-color:#95C1F4;
+	border:solid 1px #000; 
+}
+.alkali_metal{
+	background-color:#D6D1D1;
+	border:solid 1px #000; 
+}
+.earth_metal{
+	background-color: #B2F495;
+	border:solid 1px #000; 
+}
+.noble{
+	background-color:#F4C695;
+	border:solid 1px #000; 
+}
+.trans{
+	background-color: #F2F745;
+	border:solid 1px #000; 
+}
+table{
+	border-collapse: collapse;
+}
+td{
+	width:45px;
+	height:45px;
+	font-size:30px;
+	text-align: center;
+}
+.wborder{
+	-webkit-text-stroke-width: 0.5px;
+	-webkit-text-stroke-color: #fff;
+}
+.gas{
+	color:red;
+}
+.solid{
+	color:balck;
+}
+.liquid{
+	color:blue;
+}
+#empty{
+	height:45;
+}
